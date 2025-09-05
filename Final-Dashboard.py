@@ -203,6 +203,9 @@ def process_file(file_path):
 
 def prepare_all_datasets():
     """Load all available threat datasets"""
+    print("🔍 Debug: Checking for Excel files...")
+    print("Current working directory:", os.getcwd())
+    print("Files in directory:", [f for f in os.listdir('.') if f.endswith('.xlsx')])
     file_patterns = [
         'T1-Identification-of-IoT-User.xlsx',
         'T2-Identification-of-IoT-device.xlsx',
@@ -225,7 +228,8 @@ def prepare_all_datasets():
             if result:
                 datasets[result['filename']] = result
                 print(f"✅ Loaded: {result['filename']} with {len(result['all_actors'])} actors")
-    
+        else:       
+            print(f"❌ File not found: {file_path}")
     return datasets
 
 #########################################
@@ -686,5 +690,6 @@ if __name__ == '__main__':
     print("🚀 Starting optimized dashboard server...")
     # Modified for deployment
     app.run_server(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8050)))
+
 
 
