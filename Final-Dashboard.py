@@ -678,7 +678,13 @@ def update_dashboard(selected_dataset, top3_only):
     
     return fig, info_content
 
+# Expose the Flask server for deployment
+server = app.server
+
 if __name__ == '__main__':
     print(f"\n🎉 Enhanced Dashboard ready with {len(all_datasets)} datasets!")
     print("🚀 Starting optimized dashboard server...")
-    app.run(debug=True, host='127.0.0.1', port=8050)
+    # Modified for deployment
+    app.run_server(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8050)))
+
+
